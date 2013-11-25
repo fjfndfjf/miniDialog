@@ -74,7 +74,8 @@ h3. 自定义样式
 
 你可以自行定义样式来覆盖掉默认的样式，请保证自定义样式的优先级高于默认样式，通常情况下将自定义样式后引入即可。
 
-<pre><link rel="stylesheet" href="miniDialog.min.css" /><link rel="stylesheet" href="yourCustomStyles.css" /></pre>
+<pre><link rel="stylesheet" href="miniDialog.min.css" />
+<link rel="stylesheet" href="yourCustomStyles.css" /></pre>
 
 例如，要更改对话框内的字体大小为12px（默认样式为14px），只需要在yourCustomStyles.css中编写：
 
