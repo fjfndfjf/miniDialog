@@ -117,7 +117,7 @@
 			$.each(['default','alert','confirm','prompt'],function(i,e){
 				var $this = $('#'+e)
 				$this.on('click',function(){
-					$code.text($this.data('code'))
+					$code.val($this.data('code'))
 				})
 			})
 			$('#custom_code').on('click',function(){
@@ -169,7 +169,7 @@
 					tmp.push(']')
 				}
 				tmp.push('})')
-				$code.text(tmp.join(''))
+				$code.val(tmp.join(''))
 			})
 			$('#add_button').on('click',function(){
 				$('#custom_table').append(
@@ -186,7 +186,7 @@
 				)
 			})
 			$('#custom_run').on('click',function(){
-				eval($code.text())
+				eval($code.val())
 			})
 		})
 	</script>

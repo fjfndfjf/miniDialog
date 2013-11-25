@@ -189,7 +189,7 @@
 		defaultOptions:defaultOptions,
 		otherOptions:otherOptions
 	}
-	out.alert = function(msg,okFunction,options){
+	out.alert = function(msg,okFunction,options,noRemoveWhenClose){
 		return new MiniDialog($.extend({
 			content:msg,
 			buttons:[
@@ -197,12 +197,15 @@
 					'value':'确定',
 					'click':function(e,miniDialogObjectInstance){
 						okFunction.call(this,e,miniDialogObjectInstance)
+						if(!noRemoveWhenClose){
+							miniDialogObjectInstance.remove()
+						}
 					}
 				}
 			]
 		},options))
 	}
-	out.confirm = function(msg,okFunction,cancelFunction,options){
+	out.confirm = function(msg,okFunction,cancelFunction,options,noRemoveWhenClose){
 		return new MiniDialog($.extend({
 			content:msg,
 			buttons:[
@@ -210,6 +213,9 @@
 					'value':'确定',
 					'click':function(e,miniDialogObjectInstance){
 						okFunction.call(this,e,miniDialogObjectInstance)
+						if(!noRemoveWhenClose){
+							miniDialogObjectInstance.remove()
+						}
 					}
 				},
 				{
@@ -217,12 +223,15 @@
 					'type':'secondary',
 					'click':function(e,miniDialogObjectInstance){
 						cancelFunction.call(this,e,miniDialogObjectInstance)
+						if(!noRemoveWhenClose){
+							miniDialogObjectInstance.remove()
+						}
 					}
 				}
 			]
 		},options))
 	}
-	out.prompt = function(msg,defaultPrompt,okFunction,cancelFunction,options){
+	out.prompt = function(msg,defaultPrompt,okFunction,cancelFunction,options,noRemoveWhenClose){
 		var inputClass = 'miniDialog_prompt_input'
 		return new MiniDialog($.extend({
 			content:['<div style="margin-bottom:5px">',msg,'</div><div><input class="',inputClass,'" style="width:175px;padding:6px 4px" value="',defaultPrompt,'"/></div>'].join(''),
@@ -231,6 +240,9 @@
 					'value':'确定',
 					'click':function(e,miniDialogObjectInstance){
 						okFunction.call(this,e,miniDialogObjectInstance,miniDialogObjectInstance.$content.find('input.'+inputClass).val())
+						if(!noRemoveWhenClose){
+							miniDialogObjectInstance.remove()
+						}
 					}
 				},
 				{
@@ -238,6 +250,9 @@
 					'type':'secondary',
 					'click':function(e,miniDialogObjectInstance){
 						cancelFunction.call(this,e,miniDialogObjectInstance,miniDialogObjectInstance.$content.find('input.'+inputClass).val())
+						if(!noRemoveWhenClose){
+							miniDialogObjectInstance.remove()
+						}
 					}
 				}
 			]
