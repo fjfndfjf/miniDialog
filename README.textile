@@ -1,6 +1,6 @@
 h1. miniDialog
 
-miniDialog是一个轻量级的对话框弹出组件，在压缩和gzip后，css和js文件大小均为1k左右。
+miniDialog是一个基于jQuery或zepto的轻量级的对话框弹出组件，在压缩和gzip后，css和js文件大小均为1k左右。
 
 它是基于jQuery编写的，也可以用于zepto。适用平台：IE6+、Chorme、FireFox、Opera、Safari、iOS 5.0+、Android 2.2+
 
@@ -10,12 +10,12 @@ h1. 使用方法
 
 h2. 引入页面
 
-miniDialog基于jQuery或Zepto，将这些js引入你的页面，建议置于</body>结束标签之前
+miniDialog基于jQuery或Zepto，将这些js引入你的页面，建议置于 @body@结束标签之前
 
-<pre><script src="jquery.js"></script>或<script src="zepto.js"></script>
+<pre><script src="jQuery.js"></script>或<script src="zepto.js"></script>
 <script src="miniDialog.js"></script></pre>
 
-另外我们还提供了预设的样式，也请同时引入，建议置于<head>内
+另外我们还提供了预设的样式，也请同时引入，建议置于 @head@ 内
 
 <pre><link rel="stylesheet" href="miniDialog.css" /></pre>
 
@@ -28,30 +28,109 @@ miniDialog(options)
 // 如：将使用全部默认配置显示一个对话框
 miniDialog()</pre>
 
+下面是options的全部字段：
+
+* @title@ String 对话框的标题，可以为任意html字符串默认为 @'消息'@
+* @content@ String 对话框的内容，可以为任意html字符串默认为 @''@
+* @width@ Number 对话框的宽度，单位像素，默认 @300@
+* @height@ Number 对话框的宽度，单位像素，默认 @300@
+* @mask@ Boolean 对话框是否有背景遮罩，如果有得话整个背景将被一个半透明黑色层遮住，用户只能和当前对话框交互，默认 @true@
+* @closeX@ Boolean 对话框是否有右上角的关闭按钮（当然可以通过定制css来调整它的位置），默认 @false@
+* @clickCloseX@ Function 点击上述关闭按钮后的回调函数，函数中this指向被点击按钮的DOM，第一个参数e为事件对象，第二个参数miniDialogObjectInstance为当前miniDialog实例对象，默认为空函数 @function(e,miniDialogObjectInstance){}@
+* @init@ Function 当一个新的miniDialog实例对象初始化完毕后的回调函数，函数中this指向当前miniDialog实例对象，默认为空函数 @function(){}@
+* @warpperCssClass@ String 对话框最外层DOM的css样式类，默认 @'miniDialog_wrapper'@
+* @warpperCssClass@ String 对话框标题的css样式类，默认 @'miniDialog_title'@
+* @contentOuterCssClass@ String 对话框内容外层DOM的css样式类，默认 @'miniDialog_content_outer'@
+* @contentCssClass@ String 对话框内容内层DOM的css样式类，默认 @'miniDialog_content'@
+* @buttonsAreaCssClass@ String 对话框按钮区域外层DOM的css样式类，默认 @'miniDialog_buttons_area'@
+* @buttonCssClass@ String 对话框各按钮的css样式类，默认 @'miniDialog_button'@
+* @otherTypeButtonCssClassPrefix@ String 对话框自定义类别按钮的css样式类的前缀，默认 @'miniDialog_button_'@
+* @lastButtonCssClass@ String 对话框最后一个按钮的css样式类，默认 @'miniDialog_last_button'@
+* @closeXCssClass@ String 对话框中关闭按钮的css样式类，默认 @'miniDialog_close_x'@
+* @buttons@ Array 对话框中包含的按钮，数组中每一个项均为一个对象（{}），它对应一个按钮。
+目前这个对象有两个字段，第一个 @value@ 为按钮上显示的文字，第二个 @click@ 为点击该按钮后的回调函数。
+该回调函数中this指向被点击按钮的DOM，第一个参数e为事件对象，第二个参数miniDialogObjectInstance为当前miniDialog实例对象。
+默认 @[{'value':'确定'}]@
+
+h2. 更改默认
+
+h3. 更改miniDialog默认配置
+
+上述配置项的默认配置可以通过可读可写的 @miniDialog.config.defaultOptions@ 对象来配置。
+如，更改默认配置中closeX为true，即默认有右上角关闭按钮，可以在初始化miniDialog对象实例之前，调用：
+
+<pre>miniDialog.config.defaultOptions.closeX = true</pre>
+
+h3. 更改其它默认配置
+
+除了上述配置项之外，其它的配置项置于 @miniDialog.config.otherOptions@ 中，目前这之中只有一项：
+* @maskCssClass@ String 背景遮罩的css样式类，默认 @'miniDialog_mask'@ ，同样可以更改默认配置，如：
+
+<pre>miniDialog.config.otherOptions.maskCssClass = 'my_miniDialog_mask'</pre>
+
+h3. 自定义样式
+
+你可以自行定义样式来覆盖掉默认的样式，请保证自定义样式的优先级高于默认样式，通常情况下将自定义样式后引入即可。
+
+<pre><link rel="stylesheet" href="miniDialog.css" /><link rel="stylesheet" href="yourCustomStyles.css" /></pre>
+
+例如，要更改对话框内的字体大小为12px（默认样式为14px），只需要在yourCustomStyles.css中编写：
+
+<pre>.miniDialog_wrapper{font-size:12px;}</pre>
+
+h2. 实例方法
+
+通过调用miniDialog(options)或下面的“预设快捷方式”，将返回一个miniDialog实例对象，如：
+
+<pre>var myMiniDialog = miniDialog({
+    'title':'miniDialog实例对象',
+    'content':'这是我的miniDialog实例对象'
+})</pre>
+
+目前它有三个方法
+* show() 显示
+* hide() 隐藏，隐藏当前miniDialog实例对象，如果所有需要背景遮罩（mask）的miniDialog实例对象都已经隐藏，则背景遮罩也会隐藏
+* remove() 移除，当确定该miniDialog实例对象不再需要使用时，可以调用这个方法将它移除，以便于释放资源。
+
+<pre>myMiniDialog.show()
+myMiniDialog.hide()
+myMiniDialog.remove()</pre>
+
 h2. 预设快捷方式
 
 预设了模仿浏览器alert、confirm、prompt快捷方式，调用很简单
 
-<pre>
-// alert
-miniDialog.alert(stringToShow,CallbackFunctionWhenClickOkButton)
-// 如：
-miniDialog.alert('alert',function(){
-    alert('点了确认')
-})</pre>
+h3. alert
 
 <pre>
-// confirm
+miniDialog.alert(stringToShow,CallbackFunctionWhenClickOkButton)
+// 如：
+miniDialog.alert('alert',function(e,miniDialogObjectInstance){
+    alert('点了确认')
+})</pre>
+参数：
+* @stringToShow@ String alert显示的字符串
+* @CallbackFunctionWhenClickOkButton@ Function 点击“确定”按钮时的回调函数，函数中this指向被点击按钮的DOM，第一个参数e为事件对象，第二个参数miniDialogObjectInstance为当前miniDialog实例对象
+
+h3. confirm
+
+<pre>
 miniDialog.confirm(stringToShow,CallbackFunctionWhenClickOkButton,CallbackFunctionWhenClickCancelButton)
 // 如：
-miniDialog.confirm('confirm',function(){
+miniDialog.confirm('confirm',function(e,miniDialogObjectInstance){
     alert('点了确认')
 },function(){
     alert('点了取消')
 })</pre>
+参数：
+* @stringToShow@ String confirm显示的字符串
+* @CallbackFunctionWhenClickOkButton@ Function 点击“确定”按钮时的回调函数，函数中this指向被点击按钮的DOM，第一个参数e为事件对象，第二个参数miniDialogObjectInstance为当前miniDialog实例对象
+* @CallbackFunctionWhenClickCancelButton@ Function 点击“取消”按钮时的回调函数，函数中this指向被点击按钮的DOM，第一个参数e为事件对象，第二个参数miniDialogObjectInstance为当前miniDialog实例对象
+
+
+h3. prompt
 
 <pre>
-// prompt
 miniDialog.prompt(stringToShow,defaultInputString,CallbackFunctionWhenClickOkButton,CallbackFunctionWhenClickCancelButton)
 // 如：
 miniDialog.prompt('prompt','defaultPrompt',function(e,miniDialogObjectInstance,userInput){
@@ -59,185 +138,12 @@ miniDialog.prompt('prompt','defaultPrompt',function(e,miniDialogObjectInstance,u
 },function(e,miniDialogObjectInstance,userInput){
     alert('点了取消，输入的是：'+userInput)
 })</pre>
-
-h3. With AJAX loaded content
-
-<pre><img class="lazy" data-original="img/example.jpg" width="765" height="574"></pre>
-
-<pre>
-$("#container").one("click", function() {
-    $("#container").load("images.html", function(response, status, xhr) {
-        $("img.lazy").lazyload();
-    });              
-});
-</pre>
-
-See `enabled_ajax.html`
-
-h3. With css background images
-
-<pre><div class="lazy" data-original="img/bmw_m1_hood.jpg" style="background-image: url('img/grey.gif'); width: 765px; height: 574px;"></div></pre>
-
-<pre>
-$("div.lazy").lazyload();
-// Or add some effect
-$("div.lazy").lazyload({
-    effect : "fadeIn"
-});
-</pre>
-
-See `enabled_background.html`
-
-h3. Scrolling in a container
-
-<pre><img class="lazy" data-original="img/example.jpg" width="765" height="574"></pre>
-
-<pre>
-#container {
-    height: 600px;
-    overflow: scroll;
-}
-</pre>
-
-<pre>
-$("img.lazy").lazyload({         
-    effect : "fadeIn",
-    container: $("#container")
-});
-</pre>
-
-See `enabled_container.html`
-
-h3. Load when `scrollstop` (or other custom event)
-
-<pre><img class="lazy" data-original="img/example.jpg" width="765" height="574"></pre>
-
-<pre>
-<script src="jquery.scrollstop.js" type="text/javascript"></script>
-</pre>
-
-<pre>
-$("img.lazy").lazyload({
-  event: "scrollstop"
-});
-</pre>
-
-See `enabled_gazillion.php`
-
-h3. Scrolling in a horizontal container
-
-<pre><img class="lazy" data-original="img/example.jpg" width="765" height="574"></pre>
-
-<pre>
-#container {
-    width: 800px;
-    overflow: scroll;
-}
-#inner_container {
-    width: 4750px;
-}
-</pre>
-
-<pre>
-$("img.lazy").lazyload({
-    container: $("#container")
-});
-</pre>
-
-See `enabled_wide_container.html`
-
-h3. With fadein effect
-
-<pre><img class="lazy" data-original="img/example.jpg" width="765" height="574"></pre>
-
-<pre>
-$("img.lazy").lazyload({
-    effect : "fadeIn"
-});
-</pre>
-
-See `enabled_fadein.html`
-
-h3. Load images after `five second` delay
-
-<pre><img class="lazy" src="img/grey.gif" data-original="img/example.jpg" width="765" height="574"></pre>
-
-<pre>
-$(function() {          
-    $("img.lazy").lazyload({
-        event : "sporty"
-    });
-});
- 
-$(window).bind("load", function() { 
-    var timeout = setTimeout(function() {
-    	$("img.lazy").trigger("sporty")
-    }, 5000);
-});
-</pre>
-
-See `enabled_timeout.html`
-
-h3. Using in (horizontal) wide page
-
-<pre><img class="lazy" data-original="img/example.jpg" width="765" height="574"></pre>
-
-<pre>
-$("img.lazy").lazyload({
-    effect: "fadeIn"
-});
-</pre>
-
-See `enabled_wide.html`
-
-h3. Using in page which can only scroll vertically
-
-<pre><img class="lazy" data-original="img/example.jpg" width="765" height="574"></pre>
-
-<pre>
-$("img.lazy").lazyload({
-    vertical_only: true
-});
-</pre>
-
-See `enabled_vertical_only.html`
-
-h2. The options object
-
-You can use the options object as the first argument in the `lazyload` method.
-
-<pre>
-var options = {
-    // By default images are loaded when they appear on the screen. If you want images to load earlier use threshold parameter. Setting threshold to 200 causes image to load 200 pixels before it appears on viewport.
-    threshold          : 0, // default: 0. Another example: 200
-    // After scrolling page plugin loops though unloaded images. Loop checks if image has become visible. By default loop is stopped when first image outside viewport is found. This is based on following assumption. Order of images on page is same as order of images in HTML code. With some layouts assumption this might be wrong. You can control loading behaviour with failure_limit setting.
-    failure_limit      : 0, // default: 0. Another example: 10
-    // You can use jQuery event such as click or mouseover. You can also use custom events such as sporty or foobar. Default is to wait until user scrolls down and image appears on the viewport.
-    event              : 'scroll', // default: 'scroll'. Another example: 'click'
-    // By default plugin waits for image to fully load and calls show(). You can use any effect you want. Following code uses fadeIn effect. Check how it works at effect demo page.
-    effect             : 'show', // default: 'show'. Another example: 'fadein'
-    // the arguments array of `effect` function. For two examples, if `effect` is set to `show` and `effect_params` is set to [400], it will call `$element.show(400)` to show the image after 400ms; if `effect` is set to `fadein` and `effect_params` is set to [400,completeFunction], it will call `$element.fadein(400,completeFunction)` to fadeIn the image in 400ms and call the `completeFunction` when the animation is complete.
-    effect_params      : null, // default: undefined. Another example: [400].
-    // You can also use plugin for images inside scrolling container, such as div with scrollbar. Just pass the container as jQuery object. There is a demo for horizontal and vertical container.
-    container          : window, // default: 'show'. Another example: $('#container')
-    // By default images's original url set in `data-original` attribute, you can change it to Another attribute such as `url`,so it will find the original url in `data-url` attribute.
-    data_attribute     : 'original', // default: 'original'. Another example: 'url'
-    // There are cases when you have images which are in viewport but not :visible. To improve performance plugin ignores not visible (`($this.width() || $this.height()) && $this.css("display") !== "none"){`) by default. If you want to load these images set skip_invisible to false.
-    skip_invisible     : true, // default: true. Another example: false
-    // Call when one image is appear to the viewport. The `this` is refer to the appear image element node, params are count of elements not appear yet, and the options.
-    appear             : null, // default: null. Another example: function(elements_left, options){}
-    // Call when one image is load. The `this` is refer to the appear image element node, params are count of elements not appear yet, and the options.
-    load               : null, // default: null. Another example: function(elements_left, options){}
-    // In most situations, page can only scroll vertically.At this time, only check images's vertical position will improve performance.You can only set vertical_only to true when page can only scroll vertically.
-    vertical_only      : false, // default: false. Another example: true
-    // If element is an img and no src attribute given, use placeholder. 
-    placeholderDataImg : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC',
-    // Placeholder for IE6/7
-    placeholderRealImg : 'http://webmap4.map.bdimg.com/yyfm/lazyload/0.0.1/img/placeholder.png'
-}
-$("img.lazy").lazyload(options);
-</pre>
+参数：
+* @stringToShow@ String prompt显示的字符串
+* @defaultInputString@ String prompt输入框的默认值
+* @CallbackFunctionWhenClickOkButton@ Function 点击“确定”按钮时的回调函数，函数中this指向被点击按钮的DOM，第一个参数e为事件对象，第二个参数miniDialogObjectInstance为当前miniDialog实例对象，第三个参数是当前输入框中的值
+* @CallbackFunctionWhenClickCancelButton@ Function 点击“取消”按钮时的回调函数，函数中this指向被点击按钮的DOM，第一个参数e为事件对象，第二个参数miniDialogObjectInstance为当前miniDialog实例对象，第三个参数是当前输入框中的值
 
 h1. License
 
-All code licensed under the "MIT License":http://www.opensource.org/licenses/mit-license.php. All images licensed under "Creative Commons Attribution 3.0 Unported License":http://creativecommons.org/licenses/by/3.0/deed.en_US. In other words you are basically free to do whatever you want. Just don't remove my name from the source.
+所有代码基于 "MIT License":http://www.opensource.org/licenses/mit-license.php. 即你可以随意使用和更改，但请保留原作者名和项目链接。
