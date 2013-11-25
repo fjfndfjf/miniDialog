@@ -19,6 +19,8 @@ miniDialog基于jQuery或Zepto，将这些js引入你的页面，建议置于 @b
 
 <pre><link rel="stylesheet" href="miniDialog.min.css" /></pre>
 
+同时确保b.png置于 miniDialog.min.css 同一路径。如果你想将b.png置于其它位置，请参阅 `自定义样式` 节，来覆盖部分样式。
+
 h2. 调用
 
 只需要这一句，就能创建并显示一个默认的对话框弹窗
