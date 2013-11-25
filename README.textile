@@ -108,21 +108,21 @@ h2. 预设快捷方式
 h3. alert
 
 <pre>
-miniDialog.alert(stringToShow,CallbackFunctionWhenClickOkButton,options,noRemoveWhenClose)
+miniDialog.alert(stringToShow,callbackFunctionWhenClickOkButton,options,noRemoveWhenClose)
 // 如：
 miniDialog.alert('alert',function(e,miniDialogObjectInstance){
     alert('点了确认')
 })</pre>
 参数：
 * @stringToShow@ String alert显示的字符串
-* @CallbackFunctionWhenClickOkButton@ Function 点击“确定”按钮时的回调函数，函数中this指向被点击按钮的DOM，第一个参数e为事件对象，第二个参数miniDialogObjectInstance为当前miniDialog实例对象
+* @callbackFunctionWhenClickOkButton@ Function 点击“确定”按钮时的回调函数，函数中this指向被点击按钮的DOM，第一个参数e为事件对象，第二个参数miniDialogObjectInstance为当前miniDialog实例对象
 * @options@ Object 其它配置项，具体参见 `options字段`
 * @noRemoveWhenClose@ Boolean 这些快捷调用方法在调用一次后即自动移除（调用.remove()），此项如果为true，则不会自动移除
 
 h3. confirm
 
 <pre>
-miniDialog.confirm(stringToShow,CallbackFunctionWhenClickOkButton,CallbackFunctionWhenClickCancelButton,options,noRemoveWhenClose)
+miniDialog.confirm(stringToShow,callbackFunctionWhenClickOkButton,callbackFunctionWhenClickCancelButton,options,noRemoveWhenClose)
 // 如：
 miniDialog.confirm('confirm',function(e,miniDialogObjectInstance){
     alert('点了确认')
@@ -131,15 +131,15 @@ miniDialog.confirm('confirm',function(e,miniDialogObjectInstance){
 })</pre>
 参数：
 * @stringToShow@ String confirm显示的字符串
-* @CallbackFunctionWhenClickOkButton@ Function 点击“确定”按钮时的回调函数，函数中this指向被点击按钮的DOM，第一个参数e为事件对象，第二个参数miniDialogObjectInstance为当前miniDialog实例对象
-* @CallbackFunctionWhenClickCancelButton@ Function 点击“取消”按钮时的回调函数，函数中this指向被点击按钮的DOM，第一个参数e为事件对象，第二个参数miniDialogObjectInstance为当前miniDialog实例对象
+* @callbackFunctionWhenClickOkButton@ Function 点击“确定”按钮时的回调函数，函数中this指向被点击按钮的DOM，第一个参数e为事件对象，第二个参数miniDialogObjectInstance为当前miniDialog实例对象
+* @callbackFunctionWhenClickCancelButton@ Function 点击“取消”按钮时的回调函数，函数中this指向被点击按钮的DOM，第一个参数e为事件对象，第二个参数miniDialogObjectInstance为当前miniDialog实例对象
 * @options@ Object 其它配置项，具体参见 `options字段`
 * @noRemoveWhenClose@ Boolean 这些快捷调用方法在调用一次后即自动移除（调用.remove()），此项如果为true，则不会自动移除
 
 h3. prompt
 
 <pre>
-miniDialog.prompt(stringToShow,defaultInputString,CallbackFunctionWhenClickOkButton,CallbackFunctionWhenClickCancelButton,options,noRemoveWhenClose)
+miniDialog.prompt(stringToShow,defaultInputString,callbackFunctionWhenClickOkButton,callbackFunctionWhenClickCancelButton,options,noRemoveWhenClose)
 // 如：
 miniDialog.prompt('prompt','defaultPrompt',function(e,miniDialogObjectInstance,userInput){
     alert('点了确认，输入的是：'+userInput)
@@ -149,8 +149,8 @@ miniDialog.prompt('prompt','defaultPrompt',function(e,miniDialogObjectInstance,u
 参数：
 * @stringToShow@ String prompt显示的字符串
 * @defaultInputString@ String prompt输入框的默认值
-* @CallbackFunctionWhenClickOkButton@ Function 点击“确定”按钮时的回调函数，函数中this指向被点击按钮的DOM，第一个参数e为事件对象，第二个参数miniDialogObjectInstance为当前miniDialog实例对象，第三个参数是当前输入框中的值
-* @CallbackFunctionWhenClickCancelButton@ Function 点击“取消”按钮时的回调函数，函数中this指向被点击按钮的DOM，第一个参数e为事件对象，第二个参数miniDialogObjectInstance为当前miniDialog实例对象，第三个参数是当前输入框中的值
+* @callbackFunctionWhenClickOkButton@ Function 点击“确定”按钮时的回调函数，函数中this指向被点击按钮的DOM，第一个参数e为事件对象，第二个参数miniDialogObjectInstance为当前miniDialog实例对象，第三个参数是当前输入框中的值
+* @callbackFunctionWhenClickCancelButton@ Function 点击“取消”按钮时的回调函数，函数中this指向被点击按钮的DOM，第一个参数e为事件对象，第二个参数miniDialogObjectInstance为当前miniDialog实例对象，第三个参数是当前输入框中的值
 * @options@ Object 其它配置项，具体参见 `options字段`
 * @noRemoveWhenClose@ Boolean 这些快捷调用方法在调用一次后即自动移除（调用.remove()），此项如果为true，则不会自动移除
 
