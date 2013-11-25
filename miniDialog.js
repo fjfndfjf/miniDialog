@@ -1,3 +1,8 @@
+/*!
+ * miniDialog
+ * Author: jieyou Qin
+ * see https://github.com/jieyou/miniDialog
+ */
 ;(function($,document,window){
 	var defaultOptions = {
 			title:'消息',

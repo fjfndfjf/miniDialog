@@ -1,6 +1,6 @@
 h1. miniDialog
 
-miniDialog是一个基于jQuery或zepto的轻量级的对话框弹出组件，在压缩和gzip后，css和js文件大小均为1k左右。
+miniDialog是一个基于jQuery或zepto的轻量级的对话框弹出组件，在压缩和gzip后，js文件大小均为1.4k左右，默认css样式大小在0.8k左右。
 
 它是基于jQuery编写的，也可以用于zepto。适用平台：IE6+、Chorme、FireFox、Opera、Safari、iOS 5.0+、Android 2.2+
 
@@ -13,11 +13,11 @@ h2. 引入页面
 miniDialog基于jQuery或Zepto，将这些js引入你的页面，建议置于 @body@结束标签之前
 
 <pre><script src="jQuery.js"></script>或<script src="zepto.js"></script>
-<script src="miniDialog.js"></script></pre>
+<script src="miniDialog.min.js"></script></pre>
 
 另外我们还提供了预设的样式，也请同时引入，建议置于 @head@ 内
 
-<pre><link rel="stylesheet" href="miniDialog.css" /></pre>
+<pre><link rel="stylesheet" href="miniDialog.min.css" /></pre>
 
 h2. 调用
 
@@ -72,7 +72,7 @@ h3. 自定义样式
 
 你可以自行定义样式来覆盖掉默认的样式，请保证自定义样式的优先级高于默认样式，通常情况下将自定义样式后引入即可。
 
-<pre><link rel="stylesheet" href="miniDialog.css" /><link rel="stylesheet" href="yourCustomStyles.css" /></pre>
+<pre><link rel="stylesheet" href="miniDialog.min.css" /><link rel="stylesheet" href="yourCustomStyles.css" /></pre>
 
 例如，要更改对话框内的字体大小为12px（默认样式为14px），只需要在yourCustomStyles.css中编写：
 
