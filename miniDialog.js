@@ -36,7 +36,7 @@
 		$document = $(document),
 		$window = $(window),
 		$mask,
-		maskUserCount = 0
+		maskUserCount = 0,
 		divStr = '<div></div>',
 		isIE6 = /msie 6/i.test(navigator.userAgent)
 
