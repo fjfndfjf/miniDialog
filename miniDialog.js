@@ -37,7 +37,6 @@
 		$window = $(window),
 		$mask,
 		maskUserCount = 0,
-		divStr = '<div></div>',
 		isIE6 = /msie 6/i.test(navigator.userAgent)
 
 	function position(miniDialog){
@@ -83,17 +82,17 @@
 			self[k] = v
 		})
 		self.isShow = false
-		self.$ = $(divStr).addClass(self.warpperCssClass).css({
+		self.$ = $(document.createElement('DIV')).addClass(self.warpperCssClass).css({
 			'width':self.width,
 			'height':self.height
 		})
-		self.$title = $(divStr).addClass(self.titleCssClass).html(self.title).appendTo(self.$)
-		self.$contentOuter = $(divStr).addClass(self.contentOuterCssClass).appendTo(self.$)
-		self.$content = $(divStr).addClass(self.contentCssClass).html(self.content).appendTo(self.$contentOuter)
+		self.$title = $(document.createElement('DIV')).addClass(self.titleCssClass).html(self.title).appendTo(self.$)
+		self.$contentOuter = $(document.createElement('DIV')).addClass(self.contentOuterCssClass).appendTo(self.$)
+		self.$content = $(document.createElement('DIV')).addClass(self.contentCssClass).html(self.content).appendTo(self.$contentOuter)
 		tmp = []
 		buttonsCount = self.buttons.length
 		$.each(self.buttons,function(i,e){
-			$tmpButton = $(divStr).addClass(self.buttonCssClass).text(e.value).on('click',function(event){
+			$tmpButton = $(document.createElement('DIV')).addClass(self.buttonCssClass).text(e.value).on('click',function(event){
 				if(e.click && typeof(e.click) == 'function'){
 					if(e.click.call(this,event,self) !== false){
 						self.hide()
@@ -110,10 +109,10 @@
 			}
 			tmp.push($tmpButton)
 		})
-		self.$buttonsArea = $(divStr).addClass(self.buttonsAreaCssClass)
+		self.$buttonsArea = $(document.createElement('DIV')).addClass(self.buttonsAreaCssClass)
 		self.$buttonsArea.append.apply(self.$buttonsArea,tmp).appendTo(self.$)
 		if(self.closeX){
-			self.$closeX = $(divStr).addClass(self.closeXCssClass).appendTo(self.$)
+			self.$closeX = $(document.createElement('DIV')).addClass(self.closeXCssClass).appendTo(self.$)
 			self.$closeX.on('click',function(event){
 				if(self.clickCloseX && typeof(self.clickCloseX) == 'function'){
 					if(self.clickCloseX.call(this,event,self) !== false){
@@ -147,7 +146,7 @@
 				if($mask){
 					$mask.show()
 				}else{
-					$mask = $(divStr).addClass(otherOptions.maskCssClass)
+					$mask = $(document.createElement('DIV')).addClass(otherOptions.maskCssClass)
 					if(isIE6){
 						setMaskWH($mask)
 						$window.on('resize',function(){
@@ -259,6 +258,6 @@
 		},options))
 	}
 
-	// $('<img />').attr('src','b.png')
+	// $(new Image()).attr('src','b.png')
 	window.miniDialog = out
 })($,document,window)
