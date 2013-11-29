@@ -52,9 +52,37 @@ h3. options字段
 * @lastButtonCssClass@ String 对话框最后一个按钮的css样式类，默认 @'miniDialog_last_button'@
 * @closeXCssClass@ String 对话框中关闭按钮的css样式类，默认 @'miniDialog_close_x'@
 * @buttons@ Array 对话框中包含的按钮，数组中每一个项均为一个对象（{}），它对应一个按钮。
-目前这个对象有两个字段，第一个 @value@ 为按钮上显示的文字，第二个 @click@ 为点击该按钮后的回调函数。
+目前这个对象有三个字段，第一个 @value@ 为按钮上显示的文字，第二个 @click@ 为点击该按钮后的回调函数。
 该回调函数中this指向被点击按钮的DOM，第一个参数e为事件对象，第二个参数miniDialogObjectInstance为当前miniDialog实例对象。
+如果上述回调函数return false，则点击按钮后不会自动关闭当前对话框。
+第三个为按钮的样式类型。目前预设了默认和 @secondary@ 两种样式类型，你可以任意添加样式类型，并自行在css文件使用 @otherTypeButtonCssClassPrefix+类型名称{}@ 中编写对应的样式（otherTypeButtonCssClassPrefix在上面可配，默认为 @'miniDialog_button_'@ ）。
 默认 @[{'value':'确定'}]@
+例：一个点击后不会自动关闭对话框的按钮，样式类型为自定义的“green”，上面的文字是“点击不关闭”，写法将会是这样：
+
+<pre>
+/* css 文件*/
+.miniDialog_button_green{
+	background:#7cb61b;
+	background:-webkit-linear-gradient(top,#98d237,#7cb61b);
+	background:-moz-linear-gradient(top,#98d237,#7cb61b);
+	background:-ms-linear-gradient(top,#98d237,#7cb61b);
+	background:linear-gradient(top,#98d237,#7cb61b);
+	border: 1px solid #999;
+	text-shadow:0px 1px 1px #679a10;
+	color:#fff;
+}	
+</pre>
+
+<pre>miniDialog(
+	'buttons':[
+		{
+		'value':'点击不关闭',
+		'type':'green',
+		'click':function(){
+			return false
+		}
+	]
+})</pre>
 
 h2. 更改默认
 
