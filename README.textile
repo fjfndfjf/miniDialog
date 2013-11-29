@@ -73,13 +73,14 @@ h3. options字段
 }	
 </pre>
 
-<pre>miniDialog(
+<pre>miniDialog({
 	'buttons':[
 		{
-		'value':'点击不关闭',
-		'type':'green',
-		'click':function(){
-			return false
+			'value':'点击不关闭',
+			'type':'green',
+			'click':function(){
+				return false
+			}
 		}
 	]
 })</pre>
