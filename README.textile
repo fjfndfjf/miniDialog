@@ -22,7 +22,7 @@ miniDialog基于jQuery或Zepto，将这些js引入你的页面，建议置于 @b
 
 <pre><link rel="stylesheet" href="miniDialog.min.css" />
 <!-- 可以使用我们提供的CDN服务器 -->
-<script src="//webmap3.map.bdimg.com/yyfm/miniDialog/1.0.0/css/miniDialog.min.css"></script></pre>
+<link rel="stylesheet" href="//webmap3.map.bdimg.com/yyfm/miniDialog/1.0.0/css/miniDialog.min.css" /></pre>
 
 同时确保b.png置于 miniDialog.min.css 同一路径。如果你想将b.png置于其它位置，请参阅 `自定义样式` 节，来覆盖部分样式。
 
